@@ -1,0 +1,2953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#050505">
+
+<title>BMW M4 — Engineered to Move</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    background:#030303;
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#030303;
+    color:#f4f4f2;
+    font-family:Inter,Arial,sans-serif;
+    overflow-x:hidden;
+}
+
+body.lock{
+    overflow:hidden;
+}
+
+img{
+    max-width:100%;
+    display:block;
+}
+
+button{
+    font:inherit;
+}
+
+a{
+    color:inherit;
+    text-decoration:none;
+}
+
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+:root{
+
+    --black:#030303;
+    --black2:#070707;
+    --panel:#0c0c0c;
+
+    --white:#f5f5f3;
+    --muted:#8b8b8b;
+    --dim:#555;
+
+    --line:rgba(255,255,255,.11);
+
+    --bmw:#0066b1;
+
+    --m1:#0066b1;
+    --m2:#6f2dbd;
+    --m3:#e21d2f;
+
+}
+
+
+/* =========================================================
+   LOADER
+========================================================= */
+
+.loader{
+    position:fixed;
+    inset:0;
+    z-index:99999;
+    background:#020202;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:opacity 1s ease,visibility 1s ease;
+}
+
+.loader.done{
+    opacity:0;
+    visibility:hidden;
+}
+
+.loader-box{
+    width:min(420px,80vw);
+}
+
+.loader-logo{
+    width:74px;
+    height:74px;
+    border:1px solid rgba(255,255,255,.35);
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    margin:0 auto 35px;
+    font-size:9px;
+    letter-spacing:.18em;
+    font-weight:800;
+}
+
+.loader-info{
+    display:flex;
+    justify-content:space-between;
+    color:#666;
+    font-size:9px;
+    letter-spacing:.2em;
+    margin-bottom:12px;
+}
+
+.loader-track{
+    height:1px;
+    background:#222;
+}
+
+.loader-bar{
+    width:0;
+    height:100%;
+    background:#fff;
+}
+
+
+/* =========================================================
+   NAV
+========================================================= */
+
+.nav{
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    height:84px;
+    padding:0 5vw;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    z-index:5000;
+    transition:.45s ease;
+}
+
+.nav.blur{
+    background:rgba(3,3,3,.76);
+    backdrop-filter:blur(18px);
+    border-bottom:1px solid rgba(255,255,255,.07);
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+.logo-round{
+    width:38px;
+    height:38px;
+    border:1px solid rgba(255,255,255,.7);
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    font-size:7px;
+    font-weight:900;
+    letter-spacing:.08em;
+}
+
+.logo-text{
+    font-size:10px;
+    letter-spacing:.22em;
+    font-weight:700;
+}
+
+.nav-links{
+    display:flex;
+    gap:30px;
+}
+
+.nav-links a{
+    color:#999;
+    font-size:9px;
+    text-transform:uppercase;
+    letter-spacing:.18em;
+    transition:.3s;
+}
+
+.nav-links a:hover{
+    color:#fff;
+}
+
+.m-bars{
+    display:flex;
+    gap:3px;
+}
+
+.m-bars span{
+    width:4px;
+    height:14px;
+    display:block;
+    transform:skewX(-18deg);
+}
+
+.m-bars span:nth-child(1){background:#0066b1}
+.m-bars span:nth-child(2){background:#6f2dbd}
+.m-bars span:nth-child(3){background:#e21d2f}
+
+.menu{
+    display:none;
+    background:none;
+    border:1px solid rgba(255,255,255,.2);
+    color:#fff;
+    width:40px;
+    height:40px;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+    height:100svh;
+    min-height:700px;
+    position:relative;
+    overflow:hidden;
+}
+
+.hero-image{
+    position:absolute;
+    inset:-5%;
+    background:
+        linear-gradient(90deg,rgba(0,0,0,.93),rgba(0,0,0,.28),rgba(0,0,0,.7)),
+        linear-gradient(0deg,#030303 0%,transparent 55%,rgba(0,0,0,.3)),
+        url("https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=2400&q=90")
+        center/cover;
+    filter:brightness(.55) contrast(1.05) saturate(.6);
+    transform:scale(1.06);
+}
+
+.hero-vignette{
+    position:absolute;
+    inset:0;
+    background:radial-gradient(circle at 65% 45%,transparent 0%,rgba(0,0,0,.3) 45%,#030303 100%);
+}
+
+.hero-content{
+    position:absolute;
+    left:7vw;
+    bottom:10vh;
+    z-index:3;
+}
+
+.kicker{
+    font-size:9px;
+    letter-spacing:.3em;
+    text-transform:uppercase;
+    color:#999;
+    margin-bottom:25px;
+}
+
+.hero-title{
+    font-family:"Space Grotesk",sans-serif;
+    font-size:clamp(100px,16vw,250px);
+    line-height:.72;
+    letter-spacing:-.09em;
+    font-weight:700;
+}
+
+.hero-title span{
+    display:block;
+}
+
+.outline{
+    color:transparent;
+    -webkit-text-stroke:1px rgba(255,255,255,.6);
+}
+
+.hero-info{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    width:min(1100px,85vw);
+    margin-top:60px;
+}
+
+.hero-info p{
+    max-width:410px;
+    color:#888;
+    font-size:12px;
+    line-height:1.9;
+}
+
+.btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-width:170px;
+    padding:16px 22px;
+    border:1px solid rgba(255,255,255,.25);
+    background:rgba(0,0,0,.2);
+    backdrop-filter:blur(12px);
+    color:#fff;
+    text-transform:uppercase;
+    font-size:9px;
+    letter-spacing:.2em;
+    transition:.35s;
+}
+
+.btn:hover{
+    background:#fff;
+    color:#000;
+    transform:translateY(-3px);
+}
+
+.hero-scroll{
+    position:absolute;
+    right:5vw;
+    bottom:8vh;
+    writing-mode:vertical-rl;
+    color:#666;
+    font-size:8px;
+    letter-spacing:.25em;
+    text-transform:uppercase;
+}
+
+.hero-scroll::after{
+    content:"";
+    display:block;
+    width:1px;
+    height:65px;
+    margin-top:14px;
+    background:linear-gradient(#fff,transparent);
+}
+
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+.section{
+    padding:150px 7vw;
+    position:relative;
+}
+
+.intro{
+    min-height:90vh;
+    display:flex;
+    align-items:center;
+}
+
+.intro-inner{
+    width:100%;
+    max-width:1250px;
+    margin:auto;
+}
+
+.number{
+    color:#555;
+    font-size:9px;
+    letter-spacing:.28em;
+    text-transform:uppercase;
+    margin-bottom:28px;
+}
+
+.big{
+    font-family:"Space Grotesk";
+    font-size:clamp(55px,8vw,120px);
+    line-height:.88;
+    letter-spacing:-.065em;
+}
+
+.big span{
+    color:#666;
+}
+
+.intro-bottom{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:100px;
+    margin-top:75px;
+}
+
+.intro-bottom p{
+    max-width:470px;
+    color:#777;
+    font-size:13px;
+    line-height:1.9;
+}
+
+.intro-rule{
+    border-top:1px solid var(--line);
+    padding-top:20px;
+}
+
+.intro-rule strong{
+    font-size:10px;
+    letter-spacing:.18em;
+}
+
+.intro-rule small{
+    display:block;
+    color:#555;
+    margin-top:10px;
+}
+
+
+/* =========================================================
+   ASSEMBLY
+========================================================= */
+
+.assembly{
+    height:500vh;
+    background:#030303;
+}
+
+.assembly-sticky{
+    position:sticky;
+    top:0;
+    height:100svh;
+    overflow:hidden;
+}
+
+.factory{
+    position:absolute;
+    inset:0;
+    background:
+        linear-gradient(90deg,#030303 0%,rgba(3,3,3,.25) 50%,#030303 100%),
+        linear-gradient(0deg,#030303 0%,transparent 50%,rgba(0,0,0,.4)),
+        url("https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=2400&q=90")
+        center/cover;
+    filter:brightness(.32) grayscale(.5);
+    transform:scale(1.08);
+}
+
+.factory-light{
+    position:absolute;
+    width:70vw;
+    height:70vw;
+    left:50%;
+    top:45%;
+    transform:translate(-50%,-50%);
+    background:radial-gradient(circle,rgba(0,102,177,.13),transparent 60%);
+    filter:blur(20px);
+}
+
+.assembly-overlay{
+    position:absolute;
+    inset:0;
+    background:
+        radial-gradient(circle at center,transparent 10%,rgba(0,0,0,.45) 65%,#030303 100%);
+}
+
+.assembly-top{
+    position:absolute;
+    top:13vh;
+    left:7vw;
+    z-index:5;
+}
+
+.assembly-title{
+    font-family:"Space Grotesk";
+    font-size:clamp(55px,8vw,120px);
+    line-height:.8;
+    letter-spacing:-.07em;
+}
+
+.assembly-sub{
+    max-width:400px;
+    margin-top:25px;
+    color:#777;
+    font-size:11px;
+    line-height:1.8;
+}
+
+.machine{
+    position:absolute;
+    width:min(1000px,78vw);
+    left:50%;
+    top:55%;
+    transform:translate(-50%,-50%);
+    aspect-ratio:16/8;
+}
+
+.machine-base{
+    position:absolute;
+    inset:0;
+    opacity:0;
+    transition:.5s;
+}
+
+.machine-base img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    filter:
+        grayscale(1)
+        brightness(.6)
+        contrast(1.35);
+}
+
+.machine-part{
+    position:absolute;
+    opacity:0;
+    transform:translateY(70px) scale(.86);
+    transition:
+        opacity .65s ease,
+        transform .9s cubic-bezier(.2,.8,.2,1);
+    pointer-events:none;
+}
+
+.machine-part.show{
+    opacity:1;
+    transform:translateY(0) scale(1);
+}
+
+.machine-part img{
+    width:100%;
+    filter:
+        grayscale(1)
+        brightness(.7)
+        contrast(1.3)
+        drop-shadow(0 30px 30px rgba(0,0,0,.8));
+}
+
+.chassis{
+    width:76%;
+    left:12%;
+    top:35%;
+}
+
+.engine{
+    width:34%;
+    left:33%;
+    top:17%;
+}
+
+.front{
+    width:32%;
+    left:6%;
+    top:30%;
+}
+
+.rear{
+    width:34%;
+    right:5%;
+    top:30%;
+}
+
+.roof{
+    width:45%;
+    left:28%;
+    top:3%;
+}
+
+.wheel1{
+    width:15%;
+    left:7%;
+    bottom:8%;
+}
+
+.wheel2{
+    width:15%;
+    right:7%;
+    bottom:8%;
+}
+
+.lights{
+    width:80%;
+    left:10%;
+    top:30%;
+    mix-blend-mode:screen;
+}
+
+.lights img{
+    filter:
+        grayscale(0)
+        brightness(2)
+        drop-shadow(0 0 30px #fff);
+}
+
+.assembly-status{
+    position:absolute;
+    left:7vw;
+    bottom:9vh;
+    z-index:5;
+}
+
+.status-label{
+    color:#555;
+    font-size:8px;
+    letter-spacing:.25em;
+    text-transform:uppercase;
+    margin-bottom:8px;
+}
+
+.status-title{
+    font-family:"Space Grotesk";
+    font-size:20px;
+}
+
+.assembly-progress{
+    position:absolute;
+    right:7vw;
+    bottom:9vh;
+    width:180px;
+}
+
+.progress-meta{
+    display:flex;
+    justify-content:space-between;
+    color:#555;
+    font-size:8px;
+    letter-spacing:.15em;
+    margin-bottom:9px;
+}
+
+.progress-track{
+    height:1px;
+    background:#282828;
+}
+
+.progress{
+    height:100%;
+    width:0;
+    background:#fff;
+}
+
+
+/* =========================================================
+   CINEMATIC STATEMENT
+========================================================= */
+
+.statement{
+    min-height:90vh;
+    display:flex;
+    align-items:center;
+    background:#050505;
+}
+
+.statement h2{
+    max-width:1200px;
+    font-family:"Space Grotesk";
+    font-size:clamp(60px,9vw,140px);
+    line-height:.86;
+    letter-spacing:-.075em;
+}
+
+.statement h2 em{
+    color:#555;
+    font-style:normal;
+}
+
+
+/* =========================================================
+   GALLERY
+========================================================= */
+
+.gallery{
+    background:#050505;
+}
+
+.gallery-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    margin-bottom:80px;
+}
+
+.gallery-head h2{
+    font-family:"Space Grotesk";
+    font-size:clamp(60px,8vw,120px);
+    line-height:.8;
+    letter-spacing:-.07em;
+}
+
+.gallery-head p{
+    max-width:320px;
+    color:#666;
+    font-size:11px;
+    line-height:1.8;
+}
+
+.gallery-grid{
+    display:grid;
+    grid-template-columns:repeat(12,1fr);
+    gap:18px;
+}
+
+.gallery-item{
+    position:relative;
+    overflow:hidden;
+    min-height:500px;
+}
+
+.gallery-item:nth-child(1){
+    grid-column:span 7;
+}
+
+.gallery-item:nth-child(2){
+    grid-column:span 5;
+    margin-top:120px;
+}
+
+.gallery-item:nth-child(3){
+    grid-column:span 5;
+}
+
+.gallery-item:nth-child(4){
+    grid-column:span 7;
+    margin-top:100px;
+}
+
+.gallery-item img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    filter:brightness(.62) saturate(.65);
+    transition:1s cubic-bezier(.2,.7,.2,1);
+}
+
+.gallery-item:hover img{
+    transform:scale(1.07);
+    filter:brightness(.82) saturate(.8);
+}
+
+.gallery-caption{
+    position:absolute;
+    left:25px;
+    right:25px;
+    bottom:25px;
+    z-index:2;
+}
+
+.gallery-caption small{
+    color:#aaa;
+    font-size:8px;
+    text-transform:uppercase;
+    letter-spacing:.22em;
+}
+
+.gallery-caption h3{
+    margin-top:7px;
+    font-family:"Space Grotesk";
+    font-size:27px;
+}
+
+
+/* =========================================================
+   PERFORMANCE
+========================================================= */
+
+.performance{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    background:
+        radial-gradient(circle at 75% 50%,rgba(0,102,177,.12),transparent 30%),
+        #030303;
+}
+
+.performance-grid{
+    width:100%;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:100px;
+    align-items:center;
+}
+
+.performance-title{
+    font-family:"Space Grotesk";
+    font-size:clamp(60px,8vw,120px);
+    line-height:.78;
+    letter-spacing:-.075em;
+}
+
+.performance-title .blue{
+    color:#0066b1;
+}
+
+.performance-copy{
+    margin-top:35px;
+    max-width:420px;
+    color:#777;
+    font-size:12px;
+    line-height:1.9;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1px;
+    background:#222;
+}
+
+.stat{
+    background:#080808;
+    padding:45px 30px;
+}
+
+.stat-num{
+    font-family:"Space Grotesk";
+    font-size:clamp(48px,5vw,76px);
+    letter-spacing:-.06em;
+}
+
+.stat-num small{
+    color:#555;
+    font-family:Inter;
+    font-size:11px;
+    letter-spacing:0;
+}
+
+.stat-label{
+    color:#555;
+    margin-top:18px;
+    font-size:8px;
+    text-transform:uppercase;
+    letter-spacing:.2em;
+}
+
+
+/* =========================================================
+   M SECTION
+========================================================= */
+
+.m-section{
+    height:100vh;
+    min-height:700px;
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+}
+
+.m-bg{
+    position:absolute;
+    inset:0;
+    background:
+        linear-gradient(90deg,#030303 0%,transparent 75%),
+        url("https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=2400&q=90")
+        center/cover;
+    filter:brightness(.3) grayscale(.4);
+}
+
+.m-stripe{
+    position:absolute;
+    width:130%;
+    height:2px;
+    left:-10%;
+    background:linear-gradient(90deg,transparent,#0066b1,#6f2dbd,#e21d2f,transparent);
+    transform:rotate(-12deg);
+    box-shadow:0 0 25px rgba(0,102,177,.4);
+}
+
+.m-stripe.two{
+    opacity:.2;
+    margin-top:160px;
+}
+
+.m-content{
+    position:relative;
+    z-index:2;
+    margin-left:10vw;
+}
+
+.m-logo{
+    display:flex;
+    gap:4px;
+    margin-bottom:35px;
+}
+
+.m-logo span{
+    display:block;
+    width:16px;
+    height:70px;
+    transform:skewX(-17deg);
+}
+
+.m-logo span:nth-child(1){background:#0066b1}
+.m-logo span:nth-child(2){background:#6f2dbd}
+.m-logo span:nth-child(3){background:#e21d2f}
+
+.m-content h2{
+    font-family:"Space Grotesk";
+    font-size:clamp(120px,20vw,300px);
+    line-height:.6;
+    letter-spacing:-.12em;
+}
+
+.m-content p{
+    max-width:430px;
+    color:#888;
+    font-size:12px;
+    line-height:1.9;
+    margin-top:70px;
+}
+
+
+/* =========================================================
+   COCKPIT
+========================================================= */
+
+.cockpit{
+    background:#050505;
+}
+
+.cockpit-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:50px;
+    margin-bottom:70px;
+}
+
+.cockpit-head h2{
+    font-family:"Space Grotesk";
+    font-size:clamp(60px,8vw,120px);
+    line-height:.8;
+    letter-spacing:-.07em;
+}
+
+.cockpit-head p{
+    max-width:350px;
+    color:#666;
+    font-size:12px;
+    line-height:1.8;
+}
+
+.cockpit-image{
+    height:75vh;
+    position:relative;
+    overflow:hidden;
+}
+
+.cockpit-image img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    filter:brightness(.55) saturate(.65);
+}
+
+.cockpit-overlay{
+    position:absolute;
+    inset:0;
+    background:linear-gradient(transparent 40%,rgba(0,0,0,.85));
+}
+
+.hotspot{
+    position:absolute;
+    width:36px;
+    height:36px;
+    border:1px solid rgba(255,255,255,.65);
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+}
+
+.hotspot::after{
+    content:"";
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#fff;
+    box-shadow:0 0 18px #fff;
+}
+
+.hotspot span{
+    position:absolute;
+    left:48px;
+    white-space:nowrap;
+    opacity:0;
+    transition:.3s;
+    color:#fff;
+    font-size:8px;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+}
+
+.hotspot:hover span{
+    opacity:1;
+}
+
+.hotspot.a{left:32%;top:53%}
+.hotspot.b{left:58%;top:38%}
+.hotspot.c{left:72%;top:61%}
+
+
+/* =========================================================
+   COMPANY
+========================================================= */
+
+.company{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+}
+
+.company-grid{
+    width:100%;
+}
+
+.company-top{
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:80px;
+}
+
+.company-top h2{
+    font-family:"Space Grotesk";
+    font-size:clamp(55px,7.5vw,110px);
+    line-height:.86;
+    letter-spacing:-.07em;
+}
+
+.company-top h2 span{
+    color:#555;
+}
+
+.company-top p{
+    color:#666;
+    font-size:12px;
+    line-height:1.9;
+}
+
+.timeline{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    margin-top:120px;
+    border-top:1px solid var(--line);
+}
+
+.timeline-item{
+    padding:30px 25px 0 0;
+    min-height:190px;
+    border-right:1px solid var(--line);
+}
+
+.timeline-item:not(:first-child){
+    padding-left:25px;
+}
+
+.timeline-item:last-child{
+    border-right:0;
+}
+
+.timeline-year{
+    color:#555;
+    font-size:8px;
+    letter-spacing:.22em;
+}
+
+.timeline-item h3{
+    margin-top:25px;
+    font-family:"Space Grotesk";
+    font-size:23px;
+}
+
+.timeline-item p{
+    margin-top:12px;
+    color:#555;
+    font-size:10px;
+    line-height:1.8;
+}
+
+
+/* =========================================================
+   CONFIGURATOR
+========================================================= */
+
+.configure{
+    background:#090909;
+}
+
+.configure-grid{
+    display:grid;
+    grid-template-columns:1fr 1.2fr;
+    gap:80px;
+    align-items:center;
+}
+
+.configure-title{
+    font-family:"Space Grotesk";
+    font-size:clamp(60px,8vw,115px);
+    line-height:.8;
+    letter-spacing:-.075em;
+}
+
+.configure-copy p{
+    max-width:390px;
+    color:#666;
+    font-size:12px;
+    line-height:1.9;
+    margin-top:30px;
+}
+
+.configurator{
+    border:1px solid rgba(255,255,255,.1);
+    background:#050505;
+    padding:20px;
+}
+
+.config-image{
+    position:relative;
+    aspect-ratio:16/9;
+    overflow:hidden;
+}
+
+.config-image img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    filter:brightness(.48) contrast(1.2) saturate(.3);
+    transition:.6s;
+}
+
+.config-tag{
+    position:absolute;
+    top:18px;
+    left:18px;
+    color:#aaa;
+    font-size:8px;
+    letter-spacing:.2em;
+}
+
+.options{
+    padding-top:25px;
+}
+
+.option-label{
+    color:#555;
+    font-size:8px;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    margin-bottom:14px;
+}
+
+.colors{
+    display:flex;
+    gap:10px;
+}
+
+.color{
+    width:32px;
+    height:32px;
+    border-radius:50%;
+    border:1px solid rgba(255,255,255,.2);
+    cursor:pointer;
+    transition:.3s;
+}
+
+.color:hover,
+.color.active{
+    transform:scale(1.16);
+    border-color:#fff;
+}
+
+.c-black{background:#0d0d0d}
+.c-grey{background:#666}
+.c-white{background:#ddd}
+.c-blue{background:#173f73}
+
+.config-bottom{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:25px;
+    padding-top:20px;
+    border-top:1px solid rgba(255,255,255,.08);
+}
+
+.config-name{
+    font-family:"Space Grotesk";
+    font-size:21px;
+}
+
+.config-finish{
+    color:#555;
+    font-size:8px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+}
+
+
+/* =========================================================
+   FINAL
+========================================================= */
+
+.final{
+    height:100vh;
+    min-height:700px;
+    position:relative;
+    display:flex;
+    align-items:flex-end;
+    overflow:hidden;
+}
+
+.final-image{
+    position:absolute;
+    inset:0;
+    background:
+        linear-gradient(0deg,#030303 0%,transparent 65%),
+        linear-gradient(90deg,rgba(0,0,0,.82),transparent 75%),
+        url("https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&fit=crop&w=2400&q=90")
+        center/cover;
+    filter:brightness(.38) saturate(.55);
+}
+
+.final-content{
+    position:relative;
+    z-index:2;
+    padding:0 7vw 9vh;
+    width:100%;
+}
+
+.final-title{
+    font-family:"Space Grotesk";
+    font-size:clamp(90px,15vw,230px);
+    line-height:.73;
+    letter-spacing:-.09em;
+}
+
+.final-title span{
+    display:block;
+}
+
+.final-bottom{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    margin-top:65px;
+    gap:40px;
+}
+
+.final-bottom p{
+    max-width:400px;
+    color:#777;
+    font-size:12px;
+    line-height:1.8;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer{
+    padding:28px 7vw;
+    border-top:1px solid rgba(255,255,255,.1);
+    display:flex;
+    justify-content:space-between;
+    color:#4d4d4d;
+    font-size:8px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+}
+
+
+/* =========================================================
+   REVEAL
+========================================================= */
+
+.reveal{
+    opacity:0;
+    transform:translateY(45px);
+    transition:
+        opacity 1s ease,
+        transform 1s cubic-bezier(.2,.7,.2,1);
+}
+
+.reveal.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:900px){
+
+    .nav{
+        height:70px;
+    }
+
+    .nav-links{
+        display:none;
+    }
+
+    .menu{
+        display:block;
+    }
+
+    .hero-content{
+        left:6vw;
+        bottom:10vh;
+    }
+
+    .hero-title{
+        font-size:20vw;
+    }
+
+    .hero-info{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:25px;
+        margin-top:40px;
+    }
+
+    .section{
+        padding:110px 6vw;
+    }
+
+    .intro-bottom{
+        grid-template-columns:1fr;
+        gap:35px;
+    }
+
+    .assembly{
+        height:380vh;
+    }
+
+    .machine{
+        width:110vw;
+    }
+
+    .assembly-title{
+        font-size:15vw;
+    }
+
+    .gallery-grid{
+        display:block;
+    }
+
+    .gallery-item,
+    .gallery-item:nth-child(2),
+    .gallery-item:nth-child(4){
+        margin:0 0 18px;
+        min-height:460px;
+    }
+
+    .performance-grid{
+        grid-template-columns:1fr;
+        gap:60px;
+    }
+
+    .company-top{
+        grid-template-columns:1fr;
+        gap:40px;
+    }
+
+    .timeline{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .timeline-item:nth-child(2){
+        border-right:0;
+    }
+
+    .timeline-item:nth-child(3),
+    .timeline-item:nth-child(4){
+        border-top:1px solid var(--line);
+    }
+
+    .configure-grid{
+        grid-template-columns:1fr;
+    }
+
+    .cockpit-head{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+}
+
+
+@media(max-width:550px){
+
+    .logo-text{
+        display:none;
+    }
+
+    .hero-title{
+        font-size:23vw;
+    }
+
+    .hero-scroll{
+        display:none;
+    }
+
+    .assembly{
+        height:330vh;
+    }
+
+    .assembly-top{
+        top:100px;
+        left:6vw;
+    }
+
+    .machine{
+        width:130vw;
+        top:53%;
+    }
+
+    .assembly-status{
+        left:6vw;
+    }
+
+    .assembly-progress{
+        right:6vw;
+        width:120px;
+    }
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .timeline{
+        grid-template-columns:1fr;
+    }
+
+    .timeline-item,
+    .timeline-item:nth-child(2){
+        padding:25px 0;
+        border-right:0;
+        border-bottom:1px solid var(--line);
+    }
+
+    .timeline-item:nth-child(3),
+    .timeline-item:nth-child(4){
+        border-top:0;
+    }
+
+    .final-title{
+        font-size:22vw;
+    }
+
+    .final-bottom{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .footer{
+        flex-direction:column;
+        gap:12px;
+    }
+
+}
+
+</style>
+</head>
+
+<body class="lock">
+
+
+<!-- =====================================================
+     LOADER
+===================================================== -->
+
+<div class="loader" id="loader">
+
+    <div class="loader-box">
+
+        <div class="loader-logo">
+            BMW
+        </div>
+
+        <div class="loader-info">
+            <span>M4 / DIGITAL EXPERIENCE</span>
+            <span id="loadNumber">00%</span>
+        </div>
+
+        <div class="loader-track">
+            <div class="loader-bar" id="loadBar"></div>
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
+
+<header class="nav" id="nav">
+
+    <a href="#top" class="logo">
+
+        <div class="logo-round">
+            BMW
+        </div>
+
+        <span class="logo-text">
+            M4 / ENGINEERED TO MOVE
+        </span>
+
+    </a>
+
+
+    <nav class="nav-links">
+
+        <a href="#build">Build</a>
+        <a href="#design">Design</a>
+        <a href="#performance">Performance</a>
+        <a href="#m">M Division</a>
+        <a href="#company">BMW</a>
+        <a href="#configure">Configure</a>
+
+    </nav>
+
+
+    <div class="m-bars">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <button class="menu" id="menu">
+        ☰
+    </button>
+
+</header>
+
+
+<main id="top">
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero">
+
+    <div class="hero-image" id="heroImage"></div>
+
+    <div class="hero-vignette"></div>
+
+
+    <div class="hero-content">
+
+        <div class="kicker reveal">
+            BMW M / DIGITAL EXPERIENCE
+        </div>
+
+
+        <h1 class="hero-title">
+
+            <span class="reveal">
+                M4
+            </span>
+
+            <span class="outline reveal">
+                UNLEASHED
+            </span>
+
+        </h1>
+
+
+        <div class="hero-info reveal">
+
+            <p>
+                Precision engineering meets unmistakable
+                M performance. Discover the machine,
+                the philosophy and the technology behind
+                the BMW M4.
+            </p>
+
+            <a href="#build" class="btn">
+                Enter the machine ↓
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="hero-scroll">
+        Scroll to experience
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     INTRO
+===================================================== -->
+
+<section class="section intro">
+
+    <div class="intro-inner">
+
+        <div class="number">
+            01 / THE MACHINE
+        </div>
+
+        <h2 class="big reveal">
+            NOT BUILT TO<br>
+            <span>BLEND IN.</span>
+        </h2>
+
+
+        <div class="intro-bottom">
+
+            <p class="reveal">
+                The M4 is where BMW design, engineering and
+                motorsport thinking converge. Every surface
+                has a reason. Every response has been tuned
+                around the driver.
+            </p>
+
+
+            <div class="intro-rule reveal">
+
+                <strong>
+                    FORM FOLLOWS FUNCTION
+                </strong>
+
+                <small>
+                    Nothing is accidental.
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     BUILD / ASSEMBLY
+===================================================== -->
+
+<section class="assembly" id="build">
+
+    <div class="assembly-sticky">
+
+        <div class="factory"></div>
+
+        <div class="factory-light"></div>
+
+        <div class="assembly-overlay"></div>
+
+
+        <div class="assembly-top">
+
+            <div class="number">
+                02 / THE BUILD
+            </div>
+
+            <h2 class="assembly-title">
+                BORN<br>
+                FROM<br>
+                <span class="outline">
+                    PRECISION.
+                </span>
+            </h2>
+
+            <p class="assembly-sub">
+                Scroll through the construction of an M
+                machine — from its mechanical foundation
+                to the final illuminated signature.
+            </p>
+
+        </div>
+
+
+        <div class="machine">
+
+            <div class="machine-base">
+                <img
+                    src="https://images.unsplash.com/photo-1553440569-bcc63803a83d?auto=format&fit=crop&w=1800&q=90"
+                    alt="Performance vehicle"
+                >
+            </div>
+
+
+            <!-- CHASSIS -->
+
+            <div class="machine-part chassis">
+                <img
+                    src="https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=1200&q=85"
+                    alt=""
+                >
+            </div>
+
+
+            <!-- ENGINE -->
+
+            <div class="machine-part engine">
+                <img
+                    src="https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&w=1000&q=85"
+                    alt=""
+                >
+            </div>
+
+
+            <!-- FRONT -->
+
+            <div class="machine-part front">
+                <img
+                    src="https://images.unsplash.com/photo-1493238792000-8113da705763?auto=format&fit=crop&w=1000&q=85"
+                    alt=""
+                >
+            </div>
+
+
+            <!-- REAR -->
+
+            <div class="machine-part rear">
+                <img
+                    src="https://images.unsplash.com/photo-1504215680853-026ed2a45def?auto=format&fit=crop&w=1000&q=85"
+                    alt=""
+                >
+            </div>
+
+
+            <!-- ROOF -->
+
+            <div class="machine-part roof">
+                <img
+                    src="https://images.unsplash.com/photo-1542362567-b07e54358753?auto=format&fit=crop&w=1000&q=85"
+                    alt=""
+                >
+            </div>
+
+
+            <!-- WHEELS -->
+
+            <div class="machine-part wheel1">
+                <img
+                    src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=700&q=85"
+                    alt=""
+                >
+            </div>
+
+            <div class="machine-part wheel2">
+                <img
+                    src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=700&q=85"
+                    alt=""
+                >
+            </div>
+
+
+            <!-- LIGHTS -->
+
+            <div class="machine-part lights">
+                <img
+                    src="https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=1500&q=90"
+                    alt=""
+                >
+            </div>
+
+        </div>
+
+
+        <div class="assembly-status">
+
+            <div class="status-label">
+                CURRENT STAGE
+            </div>
+
+            <div class="status-title" id="assemblyStatus">
+                FOUNDATION
+            </div>
+
+        </div>
+
+
+        <div class="assembly-progress">
+
+            <div class="progress-meta">
+
+                <span>ASSEMBLY</span>
+
+                <span id="assemblyPercent">
+                    00%
+                </span>
+
+            </div>
+
+            <div class="progress-track">
+
+                <div
+                    class="progress"
+                    id="assemblyProgress">
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     STATEMENT
+===================================================== -->
+
+<section class="section statement">
+
+    <h2 class="reveal">
+        WHEN ENGINEERING<br>
+        BECOMES <em>EMOTION.</em>
+    </h2>
+
+</section>
+
+
+<!-- =====================================================
+     DESIGN
+===================================================== -->
+
+<section class="section gallery" id="design">
+
+    <div class="gallery-head">
+
+        <div>
+
+            <div class="number">
+                03 / DESIGN
+            </div>
+
+            <h2 class="reveal">
+                SCULPTED<br>
+                FOR MOTION.
+            </h2>
+
+        </div>
+
+
+        <p class="reveal">
+            Aggressive proportions. Aerodynamic surfaces.
+            Details designed to communicate performance
+            before the engine even starts.
+        </p>
+
+    </div>
+
+
+    <div class="gallery-grid">
+
+
+        <article class="gallery-item reveal">
+
+            <img
+                src="https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=1800&q=90"
+                alt="Performance car"
+            >
+
+            <div class="gallery-caption">
+
+                <small>
+                    01 / Presence
+                </small>
+
+                <h3>
+                    Made to be seen.
+                </h3>
+
+            </div>
+
+        </article>
+
+
+        <article class="gallery-item reveal">
+
+            <img
+                src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1600&q=90"
+                alt="Sports car"
+            >
+
+            <div class="gallery-caption">
+
+                <small>
+                    02 / Silhouette
+                </small>
+
+                <h3>
+                    Every line moves.
+                </h3>
+
+            </div>
+
+        </article>
+
+
+        <article class="gallery-item reveal">
+
+            <img
+                src="https://images.unsplash.com/photo-1542362567-b07e54358753?auto=format&fit=crop&w=1600&q=90"
+                alt="Automotive wheel"
+            >
+
+            <div class="gallery-caption">
+
+                <small>
+                    03 / Contact
+                </small>
+
+                <h3>
+                    Grip the road.
+                </h3>
+
+            </div>
+
+        </article>
+
+
+        <article class="gallery-item reveal">
+
+            <img
+                src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=1800&q=90"
+                alt="Performance car driving"
+            >
+
+            <div class="gallery-caption">
+
+                <small>
+                    04 / Motion
+                </small>
+
+                <h3>
+                    Born for the road.
+                </h3>
+
+            </div>
+
+        </article>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     PERFORMANCE
+===================================================== -->
+
+<section class="section performance" id="performance">
+
+    <div class="performance-grid">
+
+        <div>
+
+            <div class="number">
+                04 / PERFORMANCE
+            </div>
+
+            <h2 class="performance-title reveal">
+
+                RAW<br>
+
+                <span class="blue">
+                    POWER.
+                </span>
+
+                PURE<br>
+
+                CONTROL.
+
+            </h2>
+
+
+            <p class="performance-copy reveal">
+                M engineering turns performance into something
+                tangible — acceleration, response, balance and
+                control working together as one system.
+            </p>
+
+        </div>
+
+
+        <div class="stats reveal">
+
+
+            <div class="stat">
+
+                <div class="stat-num">
+                    530 <small>HP</small>
+                </div>
+
+                <div class="stat-label">
+                    Maximum power
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-num">
+                    650 <small>Nm</small>
+                </div>
+
+                <div class="stat-label">
+                    Maximum torque
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-num">
+                    3.5 <small>s</small>
+                </div>
+
+                <div class="stat-label">
+                    0–100 km/h
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-num">
+                    M
+                </div>
+
+                <div class="stat-label">
+                    Motorsport DNA
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     BMW M
+===================================================== -->
+
+<section class="m-section" id="m">
+
+    <div class="m-bg"></div>
+
+    <div class="m-stripe"></div>
+    <div class="m-stripe two"></div>
+
+
+    <div class="m-content">
+
+        <div class="number">
+            05 / BMW M
+        </div>
+
+
+        <div class="m-logo">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+
+        <h2>
+            M
+        </h2>
+
+
+        <p>
+            Born from motorsport. Developed for the road.
+            The M philosophy is defined by performance,
+            precision and an obsession with the driver's
+            connection to the machine.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     COCKPIT
+===================================================== -->
+
+<section class="section cockpit">
+
+    <div class="cockpit-head">
+
+        <div>
+
+            <div class="number">
+                06 / COCKPIT
+            </div>
+
+            <h2 class="reveal">
+                THE DRIVER<br>
+                COMES FIRST.
+            </h2>
+
+        </div>
+
+
+        <p class="reveal">
+            A cockpit designed around focus. Digital
+            intelligence, tactile controls and performance
+            information meet within reach of the driver.
+        </p>
+
+    </div>
+
+
+    <div class="cockpit-image reveal">
+
+        <img
+            src="https://images.unsplash.com/photo-1504215680853-026ed2a45def?auto=format&fit=crop&w=2200&q=90"
+            alt="Automotive cockpit"
+        >
+
+        <div class="cockpit-overlay"></div>
+
+
+        <div class="hotspot a">
+
+            <span>
+                Driver controls
+            </span>
+
+        </div>
+
+
+        <div class="hotspot b">
+
+            <span>
+                Digital interface
+            </span>
+
+        </div>
+
+
+        <div class="hotspot c">
+
+            <span>
+                Performance seating
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     BMW COMPANY
+===================================================== -->
+
+<section class="section company" id="company">
+
+    <div class="company-grid">
+
+        <div class="company-top">
+
+            <h2 class="reveal">
+                MORE THAN<br>
+                A MACHINE.<br>
+                <span>A LEGACY.</span>
+            </h2>
+
+
+            <p class="reveal">
+                BMW's story is built around engineering,
+                design, motorsport and the continuous
+                pursuit of new possibilities in mobility.
+            </p>
+
+        </div>
+
+
+        <div class="timeline">
+
+
+            <div class="timeline-item reveal">
+
+                <div class="timeline-year">
+                    HERITAGE
+                </div>
+
+                <h3>
+                    BMW
+                </h3>
+
+                <p>
+                    Engineering and design form the
+                    foundation of the brand.
+                </p>
+
+            </div>
+
+
+            <div class="timeline-item reveal">
+
+                <div class="timeline-year">
+                    MOTORSPORT
+                </div>
+
+                <h3>
+                    M
+                </h3>
+
+                <p>
+                    Racing knowledge evolves into
+                    road-going performance.
+                </p>
+
+            </div>
+
+
+            <div class="timeline-item reveal">
+
+                <div class="timeline-year">
+                    PRESENT
+                </div>
+
+                <h3>
+                    INTELLIGENCE
+                </h3>
+
+                <p>
+                    Digital systems reshape the modern
+                    driving experience.
+                </p>
+
+            </div>
+
+
+            <div class="timeline-item reveal">
+
+                <div class="timeline-year">
+                    FUTURE
+                </div>
+
+                <h3>
+                    MOBILITY
+                </h3>
+
+                <p>
+                    New technologies redefine how
+                    performance and mobility interact.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CONFIGURATOR
+===================================================== -->
+
+<section class="section configure" id="configure">
+
+    <div class="configure-grid">
+
+        <div class="configure-copy">
+
+            <div class="number">
+                07 / CONFIGURE
+            </div>
+
+            <h2 class="configure-title reveal">
+                MAKE<br>
+                IT<br>
+                YOURS.
+            </h2>
+
+            <p class="reveal">
+                Choose the character of your machine.
+                Start with the signature matte-black
+                finish and explore different exterior moods.
+            </p>
+
+        </div>
+
+
+        <div class="configurator reveal">
+
+            <div class="config-image">
+
+                <span class="config-tag">
+                    M4 / EXTERIOR FINISH
+                </span>
+
+                <img
+                    id="configImage"
+                    src="https://images.unsplash.com/photo-1553440569-bcc63803a83d?auto=format&fit=crop&w=1800&q=90"
+                    alt="Performance vehicle"
+                >
+
+            </div>
+
+
+            <div class="options">
+
+                <div class="option-label">
+                    Select finish
+                </div>
+
+
+                <div class="colors">
+
+                    <button
+                        class="color c-black active"
+                        data-name="Matte Black"
+                        data-filter="brightness(.38) contrast(1.3) saturate(.35)"
+                    ></button>
+
+
+                    <button
+                        class="color c-grey"
+                        data-name="Brooklyn Grey"
+                        data-filter="brightness(.65) contrast(1.1) saturate(.45)"
+                    ></button>
+
+
+                    <button
+                        class="color c-white"
+                        data-name="Alpine White"
+                        data-filter="brightness(1.15) contrast(.9) saturate(.25)"
+                    ></button>
+
+
+                    <button
+                        class="color c-blue"
+                        data-name="M Performance Blue"
+                        data-filter="brightness(.6) contrast(1.1) saturate(1.5)"
+                    ></button>
+
+                </div>
+
+
+                <div class="config-bottom">
+
+                    <div class="config-name">
+                        BMW M4
+                    </div>
+
+                    <div
+                        class="config-finish"
+                        id="configFinish"
+                    >
+                        Matte Black
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FINAL
+===================================================== -->
+
+<section class="final">
+
+    <div class="final-image"></div>
+
+
+    <div class="final-content">
+
+        <div class="number">
+            08 / THE EXPERIENCE
+        </div>
+
+
+        <h2 class="final-title">
+
+            <span>
+                BUILT
+            </span>
+
+            <span class="outline">
+                TO MOVE.
+            </span>
+
+        </h2>
+
+
+        <div class="final-bottom">
+
+            <p>
+                Precision. Performance. Presence.
+                Everything converges in one machine.
+            </p>
+
+
+            <a
+                href="#top"
+                class="btn"
+            >
+                Return to beginning ↑
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="footer">
+
+    <span>
+        BMW M4 / DIGITAL EXPERIENCE
+    </span>
+
+    <span>
+        INDEPENDENT CONCEPT
+    </span>
+
+    <span>
+        2026
+    </span>
+
+</footer>
+
+
+<script>
+
+/* =========================================================
+   LOADER
+========================================================= */
+
+const loader =
+    document.getElementById("loader");
+
+const loadBar =
+    document.getElementById("loadBar");
+
+const loadNumber =
+    document.getElementById("loadNumber");
+
+let load = 0;
+
+const loading = setInterval(()=>{
+
+    load += Math.random()*9 + 4;
+
+    if(load >= 100){
+
+        load = 100;
+
+        clearInterval(loading);
+
+        setTimeout(()=>{
+
+            loader.classList.add("done");
+            document.body.classList.remove("lock");
+
+        },450);
+
+    }
+
+    loadBar.style.width = load + "%";
+
+    loadNumber.textContent =
+        Math.floor(load)
+        .toString()
+        .padStart(2,"0") + "%";
+
+},110);
+
+
+/* =========================================================
+   NAV
+========================================================= */
+
+const nav =
+    document.getElementById("nav");
+
+window.addEventListener("scroll",()=>{
+
+    nav.classList.toggle(
+        "blur",
+        window.scrollY > 60
+    );
+
+});
+
+
+/* =========================================================
+   REVEALS
+========================================================= */
+
+const revealObserver =
+    new IntersectionObserver(
+        entries=>{
+
+            entries.forEach(entry=>{
+
+                if(entry.isIntersecting){
+
+                    entry.target.classList.add("show");
+
+                }
+
+            });
+
+        },
+        {
+            threshold:.12
+        }
+    );
+
+document
+    .querySelectorAll(".reveal")
+    .forEach(element=>{
+        revealObserver.observe(element);
+    });
+
+
+/* =========================================================
+   HERO PARALLAX
+========================================================= */
+
+const heroImage =
+    document.getElementById("heroImage");
+
+window.addEventListener("scroll",()=>{
+
+    if(window.scrollY <
+       window.innerHeight){
+
+        heroImage.style.transform =
+            `scale(1.06)
+             translateY(${window.scrollY*.07}px)`;
+
+    }
+
+});
+
+
+/* =========================================================
+   ASSEMBLY EXPERIENCE
+========================================================= */
+
+const assembly =
+    document.querySelector(".assembly");
+
+const progress =
+    document.getElementById("assemblyProgress");
+
+const percentage =
+    document.getElementById("assemblyPercent");
+
+const status =
+    document.getElementById("assemblyStatus");
+
+const machineBase =
+    document.querySelector(".machine-base");
+
+const chassis =
+    document.querySelector(".chassis");
+
+const engine =
+    document.querySelector(".engine");
+
+const front =
+    document.querySelector(".front");
+
+const rear =
+    document.querySelector(".rear");
+
+const roof =
+    document.querySelector(".roof");
+
+const wheel1 =
+    document.querySelector(".wheel1");
+
+const wheel2 =
+    document.querySelector(".wheel2");
+
+const lights =
+    document.querySelector(".lights");
+
+
+function updateAssembly(){
+
+    const rect =
+        assembly.getBoundingClientRect();
+
+    const max =
+        assembly.offsetHeight -
+        window.innerHeight;
+
+    let value =
+        (-rect.top / max) * 100;
+
+    value =
+        Math.max(0,Math.min(100,value));
+
+
+    progress.style.width =
+        value + "%";
+
+    percentage.textContent =
+        Math.floor(value)
+        .toString()
+        .padStart(2,"0") + "%";
+
+
+    /*
+       FOUNDATION
+    */
+
+    if(value > 2){
+
+        machineBase.style.opacity =
+            Math.min(1,value/15);
+
+    }
+
+
+    /*
+       CHASSIS
+    */
+
+    if(value > 12){
+
+        chassis.classList.add("show");
+
+        status.textContent =
+            "CHASSIS";
+
+    }else{
+
+        chassis.classList.remove("show");
+
+    }
+
+
+    /*
+       ENGINE
+    */
+
+    if(value > 28){
+
+        engine.classList.add("show");
+
+        status.textContent =
+            "POWERTRAIN";
+
+    }else{
+
+        engine.classList.remove("show");
+
+    }
+
+
+    /*
+       BODY FRONT
+    */
+
+    if(value > 43){
+
+        front.classList.add("show");
+        rear.classList.add("show");
+
+        status.textContent =
+            "BODY STRUCTURE";
+
+    }else{
+
+        front.classList.remove("show");
+        rear.classList.remove("show");
+
+    }
+
+
+    /*
+       ROOF
+    */
+
+    if(value > 58){
+
+        roof.classList.add("show");
+
+        status.textContent =
+            "BODYWORK";
+
+    }else{
+
+        roof.classList.remove("show");
+
+    }
+
+
+    /*
+       WHEELS
+    */
+
+    if(value > 72){
+
+        wheel1.classList.add("show");
+        wheel2.classList.add("show");
+
+        status.textContent =
+            "M WHEELS";
+
+    }else{
+
+        wheel1.classList.remove("show");
+        wheel2.classList.remove("show");
+
+    }
+
+
+    /*
+       LIGHTS
+    */
+
+    if(value > 88){
+
+        lights.classList.add("show");
+
+        status.textContent =
+            "SIGNATURE LIGHTING";
+
+    }else{
+
+        lights.classList.remove("show");
+
+    }
+
+
+    /*
+       COMPLETE
+    */
+
+    if(value > 97){
+
+        status.textContent =
+            "M4 COMPLETE";
+
+    }
+
+}
+
+
+window.addEventListener(
+    "scroll",
+    updateAssembly
+);
+
+updateAssembly();
+
+
+/* =========================================================
+   CONFIGURATOR
+========================================================= */
+
+const configImage =
+    document.getElementById("configImage");
+
+const configFinish =
+    document.getElementById("configFinish");
+
+document
+    .querySelectorAll(".color")
+    .forEach(button=>{
+
+        button.addEventListener("click",()=>{
+
+            document
+                .querySelectorAll(".color")
+                .forEach(item=>{
+                    item.classList.remove("active");
+                });
+
+            button.classList.add("active");
+
+
+            configImage.style.filter =
+                button.dataset.filter;
+
+
+            configFinish.textContent =
+                button.dataset.name;
+
+        });
+
+    });
+
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+const menu =
+    document.getElementById("menu");
+
+const links =
+    document.querySelector(".nav-links");
+
+menu.addEventListener("click",()=>{
+
+    if(links.dataset.open !== "yes"){
+
+        links.dataset.open = "yes";
+
+        links.style.display = "flex";
+        links.style.position = "fixed";
+        links.style.top = "70px";
+        links.style.left = "0";
+        links.style.right = "0";
+        links.style.padding = "30px";
+        links.style.background = "rgba(3,3,3,.97)";
+        links.style.flexDirection = "column";
+        links.style.gap = "25px";
+
+    }else{
+
+        links.removeAttribute("style");
+        links.removeAttribute("data-open");
+
+    }
+
+});
+
+
+/* =========================================================
+   SMOOTH ANCHORS
+========================================================= */
+
+document
+    .querySelectorAll('a[href^="#"]')
+    .forEach(link=>{
+
+        link.addEventListener("click",event=>{
+
+            const id =
+                link.getAttribute("href");
+
+            const target =
+                document.querySelector(id);
+
+            if(!target) return;
+
+            event.preventDefault();
+
+            window.scrollTo({
+
+                top:
+                    target.offsetTop - 50,
+
+                behavior:"smooth"
+
+            });
+
+        });
+
+    });
+
+
+/* =========================================================
+   GALLERY PARALLAX
+========================================================= */
+
+const galleryImages =
+    document.querySelectorAll(".gallery-item img");
+
+window.addEventListener("scroll",()=>{
+
+    galleryImages.forEach(image=>{
+
+        const rect =
+            image.parentElement
+            .getBoundingClientRect();
+
+        const offset =
+            (window.innerHeight/2 - rect.top)
+            * .015;
+
+        image.style.transform =
+            `scale(1.03)
+             translateY(${offset}px)`;
+
+    });
+
+});
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+if(
+    window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+    ).matches
+){
+
+    document.documentElement.style.scrollBehavior =
+        "auto";
+
+    document
+        .querySelectorAll(".reveal")
+        .forEach(element=>{
+            element.classList.add("show");
+            element.style.transition="none";
+        });
+
+}
+
+</script>
+
+</body>
+</html>
